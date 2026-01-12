@@ -1,0 +1,22 @@
+# Environment variables
+#.env
+
+# App settings with secrets
+#staGledas.API/appsettings.json
+#staGledas.API/appsettings.Development.json
+
+# ML models (generated at runtime)
+*.zip
+
+# Build outputs
+**/bin/
+**/obj/
+
+# IDE
+.vs/
+.idea/
+*.user
+
+# Flutter
+stagledas_mobile/.dart_tool/
+stagledas_admin/.dart_tool/
