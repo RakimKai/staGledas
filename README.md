@@ -4,8 +4,7 @@ Seminarski rad za predmet Razvoj Softvera II
 # Upute za pokretanje:
 1. Pokrenuti komandu: ```docker-compose up --build``` u terminalu.
 2. Pustiti da se izvrti docker compose koji će da nam builda, seeda bazu i pokrene API.
-3. API će biti dostupan na ```http://localhost:5284```
-4. Swagger dokumentacija dostupna na ```http://localhost:5284/swagger```
+3. API će biti dostupan na ```http://localhost:5284/swagger/index.html```
 
 ## Pokretanje Mobile aplikacije:
 1. Pokrenuti Android emulator (Android Studio -> Device Manager).
