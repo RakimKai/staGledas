@@ -4,27 +4,24 @@ Seminarski rad za predmet Razvoj Softvera II
 # Upute za pokretanje:
 1. Pokrenuti komandu: ```docker-compose up --build``` u terminalu.
 2. Pustiti da se izvrti docker compose koji će da nam builda, seeda bazu i pokrene API.
-3. API će biti dostupan na ```http://localhost:5284```
-4. Swagger dokumentacija dostupna na ```http://localhost:5284/swagger```
+3. API će biti dostupan na ```http://localhost:5284/swagger/index.html```
 
 ## Pokretanje Mobile aplikacije:
 1. Pokrenuti Android emulator (Android Studio -> Device Manager).
 2. U terminalu navigirati do ```staGledas/stagledas_mobile```
-3. Pokrenuti komandu: ```flutter run -d emulator-5554 --dart-define=baseUrl=http://10.0.2.2:5284/api/```
-4. Koristiti aplikaciju.
+3. Pokrenuti komandu: ```flutter run --dart-define=baseUrl=http://10.0.2.2:5284/api/```
 
 ## Pokretanje Admin aplikacije:
 1. U terminalu navigirati do ```staGledas/stagledas_admin```
 2. Pokrenuti komandu: ```flutter run -d chrome``` ili ```flutter run -d windows```
-3. Koristiti aplikaciju.
 
 ## Kredencijali:
 **Admin Korisnik**\
   Korisničko ime: ```admin```\
   Lozinka: ```string```
 **Standard Korisnik**\
-  Korisničko ime: ```string```\
-  Lozinka: ```test123```
+  Korisničko ime: ```test```\
+  Lozinka: ```string```
 
 ## Stripe
 U sklopu seminarskog rada za plaćanje premium pretplate korišten je Stripe. Da bi testirali plaćanje on nam osigurava testne podatke za unos kreditne kartice. Oni su sljedeći:
