@@ -403,8 +403,88 @@ namespace staGledas.Service.Database
                     Reziser = "Quentin Tarantino",
                     PosterPath = "/d5iIlFn5s0ImszYzBPb8JPIfbXD.jpg",
                     ProsjecnaOcjena = 4.3,
-                    BrojOcjena = 2,
+                    BrojOcjena = 1,
                     BrojPregleda = 420,
+                    DatumKreiranja = new DateTime(2025, 1, 1),
+                    DatumIzmjene = new DateTime(2025, 1, 1)
+                },
+                new Filmovi
+                {
+                    Id = 6,
+                    TmdbId = 157336,
+                    Naslov = "Interstellar",
+                    Opis = "The adventures of a group of explorers who make use of a newly discovered wormhole to surpass the limitations on human space travel and conquer the vast distances involved in an interstellar voyage.",
+                    GodinaIzdanja = 2014,
+                    Trajanje = 169,
+                    Reziser = "Christopher Nolan",
+                    PosterPath = "/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
+                    ProsjecnaOcjena = 4.4,
+                    BrojOcjena = 0,
+                    BrojPregleda = 380,
+                    DatumKreiranja = new DateTime(2025, 1, 1),
+                    DatumIzmjene = new DateTime(2025, 1, 1)
+                },
+                new Filmovi
+                {
+                    Id = 7,
+                    TmdbId = 603,
+                    Naslov = "The Matrix",
+                    Opis = "Set in the 22nd century, The Matrix tells the story of a computer hacker who joins a group of underground insurgents fighting the vast and powerful computers who now rule the earth.",
+                    GodinaIzdanja = 1999,
+                    Trajanje = 136,
+                    Reziser = "Lana Wachowski",
+                    PosterPath = "/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg",
+                    ProsjecnaOcjena = 4.3,
+                    BrojOcjena = 0,
+                    BrojPregleda = 350,
+                    DatumKreiranja = new DateTime(2025, 1, 1),
+                    DatumIzmjene = new DateTime(2025, 1, 1)
+                },
+                new Filmovi
+                {
+                    Id = 8,
+                    TmdbId = 550,
+                    Naslov = "Fight Club",
+                    Opis = "A ticking-Loss time bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy.",
+                    GodinaIzdanja = 1999,
+                    Trajanje = 139,
+                    Reziser = "David Fincher",
+                    PosterPath = "/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg",
+                    ProsjecnaOcjena = 4.4,
+                    BrojOcjena = 0,
+                    BrojPregleda = 360,
+                    DatumKreiranja = new DateTime(2025, 1, 1),
+                    DatumIzmjene = new DateTime(2025, 1, 1)
+                },
+                new Filmovi
+                {
+                    Id = 9,
+                    TmdbId = 13,
+                    Naslov = "Forrest Gump",
+                    Opis = "A man with a low IQ has accomplished great things in his life and been present during significant historic events—in each case, far exceeding what anyone imagined he could do.",
+                    GodinaIzdanja = 1994,
+                    Trajanje = 142,
+                    Reziser = "Robert Zemeckis",
+                    PosterPath = "/arw2vcBveWOVZr6pxd9XTd1TdQa.jpg",
+                    ProsjecnaOcjena = 4.5,
+                    BrojOcjena = 0,
+                    BrojPregleda = 400,
+                    DatumKreiranja = new DateTime(2025, 1, 1),
+                    DatumIzmjene = new DateTime(2025, 1, 1)
+                },
+                new Filmovi
+                {
+                    Id = 10,
+                    TmdbId = 497,
+                    Naslov = "The Green Mile",
+                    Opis = "A supernatural tale set on death row in a Southern prison, where gentle giant John Coffey possesses the mysterious power to heal people's ailments.",
+                    GodinaIzdanja = 1999,
+                    Trajanje = 189,
+                    Reziser = "Frank Darabont",
+                    PosterPath = "/velWPhVMQeQKcxggNEU8YmIo52R.jpg",
+                    ProsjecnaOcjena = 4.5,
+                    BrojOcjena = 0,
+                    BrojPregleda = 320,
                     DatumKreiranja = new DateTime(2025, 1, 1),
                     DatumIzmjene = new DateTime(2025, 1, 1)
                 }
@@ -453,9 +533,9 @@ namespace staGledas.Service.Database
                 new Recenzije
                 {
                     Id = 1,
-                    KorisnikId = 2,
+                    KorisnikId = 1,
                     FilmId = 1,
-                    Ocjena = 5.0,
+                    Ocjena = 4.5,
                     Naslov = "Remek djelo modernog filma",
                     Sadrzaj = "Inception je vizualno zapanjujući film koji uspijeva kombinirati akciju sa dubokim filozofskim pitanjima o prirodi stvarnosti i snova. Nolan je stvorio jedinstveno filmsko iskustvo.",
                     ImaSpoiler = false,
@@ -465,11 +545,11 @@ namespace staGledas.Service.Database
                 new Recenzije
                 {
                     Id = 2,
-                    KorisnikId = 2,
-                    FilmId = 2,
-                    Ocjena = 5.0,
-                    Naslov = "Najbolji film svih vremena",
-                    Sadrzaj = "The Shawshank Redemption je dirljiva priča o nadi i prijateljstvu. Tim Robbins i Morgan Freeman su nevjerovatni u svojim ulogama. Film koji vas nikad neće napustiti.",
+                    KorisnikId = 1,
+                    FilmId = 3,
+                    Ocjena = 4.0,
+                    Naslov = "Filmska historija",
+                    Sadrzaj = "The Godfather je više od filma - to je kulturni fenomen koji je utjecao na generacije filmskih stvaralaca. Obavezno gledanje za svakog ljubitelja filma.",
                     ImaSpoiler = false,
                     IsHidden = false,
                     DatumKreiranja = new DateTime(2025, 1, 6)
@@ -478,10 +558,10 @@ namespace staGledas.Service.Database
                 {
                     Id = 3,
                     KorisnikId = 1,
-                    FilmId = 2,
+                    FilmId = 4,
                     Ocjena = 4.5,
-                    Naslov = "Klasik koji se mora pogledati",
-                    Sadrzaj = "Izvanredna adaptacija Stephen Kingove novele. Film koji demonstrira snagu ljudskog duha i važnost nade čak i u najtežim okolnostima.",
+                    Naslov = "Najbolji Batman film",
+                    Sadrzaj = "Nolan je transformirao Batman franšizu u nešto potpuno novo. Mračan, realističan i napeto režiran od početka do kraja.",
                     ImaSpoiler = false,
                     IsHidden = false,
                     DatumKreiranja = new DateTime(2025, 1, 7)
@@ -490,10 +570,10 @@ namespace staGledas.Service.Database
                 {
                     Id = 4,
                     KorisnikId = 2,
-                    FilmId = 3,
-                    Ocjena = 4.5,
-                    Naslov = "Epska saga o porodici i moći",
-                    Sadrzaj = "Marlon Brando je nezaboravan kao Don Vito Corleone. Coppola je stvorio film koji definira žanr gangsterskih filmova. Svaka scena je savršeno režirana.",
+                    FilmId = 2,
+                    Ocjena = 5.0,
+                    Naslov = "Najbolji film svih vremena",
+                    Sadrzaj = "The Shawshank Redemption je dirljiva priča o nadi i prijateljstvu. Tim Robbins i Morgan Freeman su nevjerovatni u svojim ulogama. Film koji vas nikad neće napustiti.",
                     ImaSpoiler = false,
                     IsHidden = false,
                     DatumKreiranja = new DateTime(2025, 1, 8)
@@ -501,42 +581,6 @@ namespace staGledas.Service.Database
                 new Recenzije
                 {
                     Id = 5,
-                    KorisnikId = 1,
-                    FilmId = 3,
-                    Ocjena = 4.0,
-                    Naslov = "Filmska historija",
-                    Sadrzaj = "The Godfather je više od filma - to je kulturni fenomen koji je utjecao na generacije filmskih stvaralaca. Obavezno gledanje za svakog ljubitelja filma.",
-                    ImaSpoiler = false,
-                    IsHidden = false,
-                    DatumKreiranja = new DateTime(2025, 1, 9)
-                },
-                new Recenzije
-                {
-                    Id = 6,
-                    KorisnikId = 2,
-                    FilmId = 4,
-                    Ocjena = 4.5,
-                    Naslov = "Heath Ledger je genijalan",
-                    Sadrzaj = "Ovaj film je dokaz da superherojski filmovi mogu biti ozbiljno umjetničko djelo. Heath Ledger kao Joker je jedna od najimpresivnijih transformacija u historiji filma.",
-                    ImaSpoiler = false,
-                    IsHidden = false,
-                    DatumKreiranja = new DateTime(2025, 1, 10)
-                },
-                new Recenzije
-                {
-                    Id = 7,
-                    KorisnikId = 1,
-                    FilmId = 4,
-                    Ocjena = 4.0,
-                    Naslov = "Najbolji Batman film",
-                    Sadrzaj = "Nolan je transformirao Batman franšizu u nešto potpuno novo. Mračan, realističan i napeto režiran od početka do kraja.",
-                    ImaSpoiler = false,
-                    IsHidden = false,
-                    DatumKreiranja = new DateTime(2025, 1, 11)
-                },
-                new Recenzije
-                {
-                    Id = 8,
                     KorisnikId = 2,
                     FilmId = 5,
                     Ocjena = 4.5,
@@ -544,43 +588,7 @@ namespace staGledas.Service.Database
                     Sadrzaj = "Pulp Fiction je revolucionirao nezavisni film 90-ih. Dijalozi su briljantni, struktura inovativna, a soundtrack savršen. Film koji zahtijeva višestruka gledanja.",
                     ImaSpoiler = false,
                     IsHidden = false,
-                    DatumKreiranja = new DateTime(2025, 1, 12)
-                },
-                new Recenzije
-                {
-                    Id = 9,
-                    KorisnikId = 1,
-                    FilmId = 5,
-                    Ocjena = 4.0,
-                    Naslov = "Kultni klasik",
-                    Sadrzaj = "Nelinearna naracija i nezaboravni likovi čine ovaj film posebnim. Samuel L. Jackson i John Travolta su savršeni zajedno.",
-                    ImaSpoiler = false,
-                    IsHidden = false,
-                    DatumKreiranja = new DateTime(2025, 1, 13)
-                },
-                new Recenzije
-                {
-                    Id = 10,
-                    KorisnikId = 1,
-                    FilmId = 1,
-                    Ocjena = 3.5,
-                    Naslov = "Vizualno impresivan ali konfuzan",
-                    Sadrzaj = "Film je tehnički briljantan ali ponekad previše kompliciran. Završetak ostavlja previše pitanja bez odgovora. Ipak, vrijedi pogledati bar jednom.",
-                    ImaSpoiler = true,
-                    IsHidden = false,
-                    DatumKreiranja = new DateTime(2025, 1, 14)
-                },
-                new Recenzije
-                {
-                    Id = 11,
-                    KorisnikId = 2,
-                    FilmId = 1,
-                    Ocjena = 4.0,
-                    Naslov = "Nolan nikad ne razočara",
-                    Sadrzaj = "Još jedan dokaz Nolanovog genija. Kompleksna priča koja nagrađuje pažljive gledatelje. Hans Zimmerov soundtrack je fantastičan.",
-                    ImaSpoiler = false,
-                    IsHidden = false,
-                    DatumKreiranja = new DateTime(2025, 1, 15)
+                    DatumKreiranja = new DateTime(2025, 1, 9)
                 }
             );
 
@@ -615,6 +623,24 @@ namespace staGledas.Service.Database
                 new Watchlist
                 {
                     Id = 4,
+                    KorisnikId = 1,
+                    FilmId = 6,
+                    DatumDodavanja = new DateTime(2025, 1, 11),
+                    Pogledano = true,
+                    DatumGledanja = new DateTime(2025, 1, 12)
+                },
+                new Watchlist
+                {
+                    Id = 5,
+                    KorisnikId = 1,
+                    FilmId = 7,
+                    DatumDodavanja = new DateTime(2025, 1, 13),
+                    Pogledano = true,
+                    DatumGledanja = new DateTime(2025, 1, 14)
+                },
+                new Watchlist
+                {
+                    Id = 6,
                     KorisnikId = 2,
                     FilmId = 2,
                     DatumDodavanja = new DateTime(2025, 1, 5),
@@ -623,12 +649,30 @@ namespace staGledas.Service.Database
                 },
                 new Watchlist
                 {
-                    Id = 5,
+                    Id = 7,
                     KorisnikId = 2,
                     FilmId = 5,
                     DatumDodavanja = new DateTime(2025, 1, 7),
                     Pogledano = true,
                     DatumGledanja = new DateTime(2025, 1, 8)
+                },
+                new Watchlist
+                {
+                    Id = 8,
+                    KorisnikId = 2,
+                    FilmId = 8,
+                    DatumDodavanja = new DateTime(2025, 1, 9),
+                    Pogledano = true,
+                    DatumGledanja = new DateTime(2025, 1, 10)
+                },
+                new Watchlist
+                {
+                    Id = 9,
+                    KorisnikId = 2,
+                    FilmId = 9,
+                    DatumDodavanja = new DateTime(2025, 1, 11),
+                    Pogledano = true,
+                    DatumGledanja = new DateTime(2025, 1, 12)
                 }
             );
 
@@ -657,16 +701,44 @@ namespace staGledas.Service.Database
                 new FilmoviLajkovi
                 {
                     Id = 4,
+                    KorisnikId = 1,
+                    FilmId = 6,
+                    DatumLajka = new DateTime(2025, 1, 12)
+                },
+                new FilmoviLajkovi
+                {
+                    Id = 5,
+                    KorisnikId = 1,
+                    FilmId = 7,
+                    DatumLajka = new DateTime(2025, 1, 14)
+                },
+                new FilmoviLajkovi
+                {
+                    Id = 6,
                     KorisnikId = 2,
                     FilmId = 2,
                     DatumLajka = new DateTime(2025, 1, 6)
                 },
                 new FilmoviLajkovi
                 {
-                    Id = 5,
+                    Id = 7,
                     KorisnikId = 2,
                     FilmId = 5,
                     DatumLajka = new DateTime(2025, 1, 8)
+                },
+                new FilmoviLajkovi
+                {
+                    Id = 8,
+                    KorisnikId = 2,
+                    FilmId = 8,
+                    DatumLajka = new DateTime(2025, 1, 10)
+                },
+                new FilmoviLajkovi
+                {
+                    Id = 9,
+                    KorisnikId = 2,
+                    FilmId = 9,
+                    DatumLajka = new DateTime(2025, 1, 12)
                 }
             );
 
