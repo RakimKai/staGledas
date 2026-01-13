@@ -20,8 +20,8 @@ Seminarski rad za predmet Razvoj Softvera II
   Korisničko ime: ```admin```\
   Lozinka: ```string```
 **Standard Korisnik**\
-  Korisničko ime: ```string```\
-  Lozinka: ```test123```
+  Korisničko ime: ```test```\
+  Lozinka: ```string```
 
 ## Stripe
 U sklopu seminarskog rada za plaćanje premium pretplate korišten je Stripe. Da bi testirali plaćanje on nam osigurava testne podatke za unos kreditne kartice. Oni su sljedeći:
