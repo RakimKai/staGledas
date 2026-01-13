@@ -11,6 +11,10 @@ Seminarski rad za predmet Razvoj Softvera II
 2. U terminalu navigirati do ```staGledas/stagledas_mobile```
 3. Pokrenuti komandu: ```flutter run --dart-define=baseUrl=http://10.0.2.2:5284/api/```
 
+**Napomena:** ```10.0.2.2``` je za Android Studio Emulator. Za druge emulatore koristiti:
+- Genymotion: ```10.0.3.2```
+- Fizički uređaj: IP adresa računara
+
 ## Pokretanje Admin aplikacije:
 1. U terminalu navigirati do ```staGledas/stagledas_admin```
 2. Pokrenuti komandu: ```flutter run -d chrome``` ili ```flutter run -d windows```
