@@ -1,10 +1,10 @@
-import 'dart:html' as html;
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:stagledas_admin/models/reports.dart';
 import 'package:stagledas_admin/providers/reports_provider.dart';
+import 'package:stagledas_admin/utils/file_saver.dart';
 import 'package:stagledas_admin/utils/util.dart';
 import 'package:stagledas_admin/widgets/custom_button.dart';
 import 'package:stagledas_admin/widgets/loading_spinner.dart';
@@ -66,12 +66,12 @@ class _AnalitikaScreenState extends State<AnalitikaScreen> {
   Future<void> _exportPdf() async {
     try {
       final pdfBytes = await _reportsProvider.exportPdf(_selectedYear);
-      final blob = html.Blob([Uint8List.fromList(pdfBytes)], 'application/pdf');
-      final url = html.Url.createObjectUrlFromBlob(blob);
-      final anchor = html.AnchorElement(href: url)
-        ..setAttribute('download', 'StaGledas_Izvjestaj_$_selectedYear.pdf')
-        ..click();
-      html.Url.revokeObjectUrl(url);
+      await saveFile(Uint8List.fromList(pdfBytes), 'StaGledas_Izvjestaj_$_selectedYear.pdf');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('PDF spremljen u Downloads folder')),
+        );
+      }
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(

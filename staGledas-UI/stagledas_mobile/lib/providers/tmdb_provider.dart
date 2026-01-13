@@ -6,7 +6,7 @@ import 'package:stagledas_mobile/models/tmdb_movie.dart';
 import 'package:stagledas_mobile/utils/auth_util.dart';
 
 class TmdbProvider {
-  String baseUrl = const String.fromEnvironment("baseUrl", defaultValue: "http://localhost:5284/api/");
+  String baseUrl = const String.fromEnvironment("baseUrl", defaultValue: "http://10.0.2.2:5284/api/");
 
   String get fullUrl => "${baseUrl}TMDb";
 

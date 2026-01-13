@@ -7,6 +7,7 @@
 
 # ML models (generated at runtime)
 *.zip
+!fit-build-*.zip
 
 # Build outputs
 **/bin/

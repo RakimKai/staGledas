@@ -75,7 +75,7 @@ class SignalRService extends ChangeNotifier {
 
       _currentUserId = await AuthUtil.getCurrentUserId();
 
-      String baseUrl = const String.fromEnvironment('baseUrl', defaultValue: 'http://localhost:5284/api/');
+      String baseUrl = const String.fromEnvironment('baseUrl', defaultValue: 'http://10.0.2.2:5284/api/');
       baseUrl = baseUrl.replaceAll('/api/', '').replaceAll('/api', '');
       if (!baseUrl.endsWith('/')) baseUrl += '/';
 

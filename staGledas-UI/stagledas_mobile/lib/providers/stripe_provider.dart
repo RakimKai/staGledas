@@ -10,7 +10,7 @@ class StripeProvider with ChangeNotifier {
 
   StripeProvider() {
     _baseUrl = const String.fromEnvironment("baseUrl",
-        defaultValue: "http://localhost:5284/api/");
+        defaultValue: "http://10.0.2.2:5284/api/");
   }
 
   Map<String, String> _createHeaders() {
