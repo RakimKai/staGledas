@@ -5,14 +5,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stagledas_mobile/layouts/master_layout.dart';
-import 'package:stagledas_mobile/models/film.dart';
 import 'package:stagledas_mobile/models/novost.dart';
 import 'package:stagledas_mobile/models/search_result.dart';
-import 'package:stagledas_mobile/providers/film_provider.dart';
 import 'package:stagledas_mobile/providers/novost_provider.dart';
 import 'package:stagledas_mobile/providers/poruka_provider.dart';
 import 'package:stagledas_mobile/providers/obavijest_provider.dart';
-import 'package:stagledas_mobile/screens/film_details_screen.dart';
+import 'package:stagledas_mobile/providers/tmdb_provider.dart';
+import 'package:stagledas_mobile/models/tmdb_movie.dart';
+import 'package:stagledas_mobile/screens/tmdb_details_screen.dart';
 import 'package:stagledas_mobile/widgets/loading_spinner_widget.dart';
 import 'package:stagledas_mobile/screens/conversations_screen.dart';
 import 'package:stagledas_mobile/services/signalr_service.dart';
@@ -27,7 +27,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
-  late FilmProvider _filmProvider;
+  late TmdbProvider _tmdbProvider;
   late NovostProvider _novostProvider;
   late PorukaProvider _porukaProvider;
   late ObavijestProvider _obavijestProvider;
@@ -39,9 +39,8 @@ class _HomeScreenState extends State<HomeScreen>
   bool _isLoadingMoreMovies = false;
   bool _hasMoreMovies = true;
   int _moviesPage = 1;
-  static const int _moviesPageSize = 15;
 
-  List<Film> _popularMovies = [];
+  List<TmdbMovie> _trendingMovies = [];
   SearchResult<Novost>? _novosti;
 
   final Map<int, Uint8List> _imageCache = {};
@@ -50,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen>
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
-    _filmProvider = context.read<FilmProvider>();
+    _tmdbProvider = context.read<TmdbProvider>();
     _novostProvider = context.read<NovostProvider>();
     _porukaProvider = context.read<PorukaProvider>();
     _obavijestProvider = context.read<ObavijestProvider>();
@@ -89,14 +88,10 @@ class _HomeScreenState extends State<HomeScreen>
     _moviesPage++;
 
     try {
-      var result = await _filmProvider.get(filter: {
-        'Page': _moviesPage,
-        'PageSize': _moviesPageSize,
-        'OrderBy': 'ProsjecnaOcjena desc',
-      });
+      var result = await _tmdbProvider.getTrending(page: _moviesPage);
       setState(() {
-        _popularMovies.addAll(result.result);
-        _hasMoreMovies = result.result.length >= _moviesPageSize;
+        _trendingMovies.addAll(result);
+        _hasMoreMovies = result.length >= 20;
         _isLoadingMoreMovies = false;
       });
     } catch (e) {
@@ -109,11 +104,7 @@ class _HomeScreenState extends State<HomeScreen>
 
   Future<void> _loadData() async {
     try {
-      var popularMovies = await _filmProvider.get(filter: {
-        'Page': 1,
-        'PageSize': _moviesPageSize,
-        'OrderBy': 'ProsjecnaOcjena desc',
-      });
+      var trendingMovies = await _tmdbProvider.getTrending(page: 1);
 
       var novosti = await _novostProvider.get(filter: {
         'PageSize': 10,
@@ -148,8 +139,8 @@ class _HomeScreenState extends State<HomeScreen>
       _signalRService.setHasUnreadInbox(messages: hasUnreadMessages, notifications: hasUnreadNotifications);
 
       setState(() {
-        _popularMovies = popularMovies.result;
-        _hasMoreMovies = popularMovies.result.length >= _moviesPageSize;
+        _trendingMovies = trendingMovies;
+        _hasMoreMovies = trendingMovies.length >= 20;
         _moviesPage = 1;
         _novosti = novosti;
         _isLoading = false;
@@ -308,7 +299,7 @@ class _HomeScreenState extends State<HomeScreen>
             ),
           ),
           const SizedBox(height: 12),
-          if (_popularMovies.isNotEmpty)
+          if (_trendingMovies.isNotEmpty)
             GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -318,9 +309,9 @@ class _HomeScreenState extends State<HomeScreen>
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
               ),
-              itemCount: _popularMovies.length,
+              itemCount: _trendingMovies.length,
               itemBuilder: (context, index) {
-                return _buildMovieGridItem(_popularMovies[index]);
+                return _buildMovieGridItem(_trendingMovies[index]);
               },
             ),
           if (_isLoadingMoreMovies)
@@ -337,12 +328,12 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  Widget _buildMovieGridItem(Film movie) {
+  Widget _buildMovieGridItem(TmdbMovie movie) {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => FilmDetailsScreen(filmId: movie.id!),
+            builder: (context) => TmdbDetailsScreen(tmdbMovie: movie),
           ),
         );
       },
@@ -361,15 +352,34 @@ class _HomeScreenState extends State<HomeScreen>
                     ),
                   ),
                 ),
-                errorWidget: (context, url, error) => Container(
-                  color: const Color(0xFFE2E8F0),
-                  child: const Icon(Icons.movie, color: Color(0xFF718096)),
-                ),
+                errorWidget: (context, url, error) => _buildMoviePlaceholder(movie),
               )
-            : Container(
-                color: const Color(0xFFE2E8F0),
-                child: const Icon(Icons.movie, color: Color(0xFF718096)),
-              ),
+            : _buildMoviePlaceholder(movie),
+      ),
+    );
+  }
+
+  Widget _buildMoviePlaceholder(TmdbMovie movie) {
+    return Container(
+      color: const Color(0xFF2D3748),
+      padding: const EdgeInsets.all(8),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(Icons.movie, color: Color(0xFF718096), size: 32),
+          const SizedBox(height: 8),
+          Text(
+            movie.title ?? '',
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 11,
+              fontWeight: FontWeight.w500,
+            ),
+            textAlign: TextAlign.center,
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ],
       ),
     );
   }
@@ -431,30 +441,20 @@ class _HomeScreenState extends State<HomeScreen>
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: cachedImage != null
-                ? Image.memory(
-                    cachedImage,
-                    width: 80,
-                    height: 100,
-                    fit: BoxFit.cover,
-                    gaplessPlayback: true,
-                    errorBuilder: (context, error, stackTrace) => Container(
-                      width: 80,
-                      height: 100,
-                      color: const Color(0xFFE2E8F0),
-                      child: const Icon(Icons.newspaper, color: Color(0xFF718096)),
-                    ),
-                  )
-                : Container(
-                    width: 80,
-                    height: 100,
-                    color: const Color(0xFFE2E8F0),
-                    child: const Icon(Icons.newspaper, color: Color(0xFF718096)),
-                  ),
-          ),
-          const SizedBox(width: 12),
+          if (cachedImage != null) ...[
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.memory(
+                cachedImage,
+                width: 80,
+                height: 100,
+                fit: BoxFit.cover,
+                gaplessPlayback: true,
+                errorBuilder: (context, error, stackTrace) => const SizedBox.shrink(),
+              ),
+            ),
+            const SizedBox(width: 12),
+          ],
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

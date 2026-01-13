@@ -65,6 +65,16 @@ namespace staGledas.Service.Database
                 .WithMany(f => f.FilmoviZanrovi)
                 .HasForeignKey(fz => fz.FilmId);
 
+            modelBuilder.Entity<Recenzije>()
+                .HasOne(r => r.Film)
+                .WithMany(f => f.Recenzije)
+                .HasForeignKey(r => r.FilmId);
+
+            modelBuilder.Entity<Recenzije>()
+                .HasOne(r => r.Korisnik)
+                .WithMany()
+                .HasForeignKey(r => r.KorisnikId);
+
             modelBuilder.Entity<FilmoviZanrovi>()
                 .HasOne(fz => fz.Zanr)
                 .WithMany(z => z.FilmoviZanrovi)
@@ -304,7 +314,7 @@ namespace staGledas.Service.Database
                     LozinkaHash = hash,
                     LozinkaSalt = salt,
                     Status = true,
-                    IsPremium = true,
+                    IsPremium = false,
                     IsDeleted = false,
                     DatumKreiranja = new DateTime(2025, 1, 1),
                     DatumIzmjene = new DateTime(2025, 1, 1)
@@ -317,28 +327,19 @@ namespace staGledas.Service.Database
                 new KorisniciUloge { Id = 3, KorisnikId = 2, UlogaId = 3 }
             );
 
-            modelBuilder.Entity<Zanrovi>().HasData(
-                new Zanrovi { Id = 1, Naziv = "Akcija", Opis = "Akcioni filmovi" },
-                new Zanrovi { Id = 2, Naziv = "Komedija", Opis = "Komicni filmovi" },
-                new Zanrovi { Id = 3, Naziv = "Drama", Opis = "Dramski filmovi" },
-                new Zanrovi { Id = 4, Naziv = "Horor", Opis = "Horor filmovi" },
-                new Zanrovi { Id = 5, Naziv = "Sci-Fi", Opis = "Naucna fantastika" },
-                new Zanrovi { Id = 6, Naziv = "Triler", Opis = "Triler filmovi" },
-                new Zanrovi { Id = 7, Naziv = "Romantika", Opis = "Romantični filmovi" },
-                new Zanrovi { Id = 8, Naziv = "Animirani", Opis = "Animirani filmovi" }
-            );
-
             modelBuilder.Entity<Filmovi>().HasData(
                 new Filmovi
                 {
                     Id = 1,
+                    TmdbId = 27205,
                     Naslov = "Inception",
-                    Opis = "A thief who steals corporate secrets through dream-sharing technology.",
+                    Opis = "Cobb, a skilled thief who commits corporate espionage by infiltrating the subconscious of his targets is offered a chance to regain his old life as payment for a task considered to be impossible: inception.",
                     GodinaIzdanja = 2010,
                     Trajanje = 148,
                     Reziser = "Christopher Nolan",
-                    ProsjecnaOcjena = 4.5,
-                    BrojOcjena = 100,
+                    PosterPath = "/ljsZTbVsrQSqZgWeep2B1QiDKuh.jpg",
+                    ProsjecnaOcjena = 4.2,
+                    BrojOcjena = 3,
                     BrojPregleda = 500,
                     DatumKreiranja = new DateTime(2025, 1, 1),
                     DatumIzmjene = new DateTime(2025, 1, 1)
@@ -346,61 +347,105 @@ namespace staGledas.Service.Database
                 new Filmovi
                 {
                     Id = 2,
-                    Naslov = "The Wolf of Wall Street",
-                    Opis = "Based on the true story of Jordan Belfort.",
-                    GodinaIzdanja = 2013,
-                    Trajanje = 180,
-                    Reziser = "Martin Scorsese",
-                    ProsjecnaOcjena = 4.2,
-                    BrojOcjena = 80,
-                    BrojPregleda = 400,
+                    TmdbId = 278,
+                    Naslov = "The Shawshank Redemption",
+                    Opis = "Imprisoned in the 1940s for the double murder of his wife and her lover, upstanding banker Andy Dufresne begins a new life at the Shawshank prison.",
+                    GodinaIzdanja = 1994,
+                    Trajanje = 142,
+                    Reziser = "Frank Darabont",
+                    PosterPath = "/9cqNxx0GxF0bflZmeSMuL5tnGzr.jpg",
+                    ProsjecnaOcjena = 4.7,
+                    BrojOcjena = 2,
+                    BrojPregleda = 450,
                     DatumKreiranja = new DateTime(2025, 1, 1),
                     DatumIzmjene = new DateTime(2025, 1, 1)
                 },
                 new Filmovi
                 {
                     Id = 3,
-                    Naslov = "Once Upon a Time in Hollywood",
-                    Opis = "A faded television actor and his stunt double strive to achieve fame.",
-                    GodinaIzdanja = 2019,
-                    Trajanje = 161,
+                    TmdbId = 238,
+                    Naslov = "The Godfather",
+                    Opis = "Spanning the years 1945 to 1955, a chronicle of the fictional Italian-American Corleone crime family.",
+                    GodinaIzdanja = 1972,
+                    Trajanje = 175,
+                    Reziser = "Francis Ford Coppola",
+                    PosterPath = "/3bhkrj58Vtu7enYsRolD1fZdja1.jpg",
+                    ProsjecnaOcjena = 4.4,
+                    BrojOcjena = 2,
+                    BrojPregleda = 400,
+                    DatumKreiranja = new DateTime(2025, 1, 1),
+                    DatumIzmjene = new DateTime(2025, 1, 1)
+                },
+                new Filmovi
+                {
+                    Id = 4,
+                    TmdbId = 155,
+                    Naslov = "The Dark Knight",
+                    Opis = "Batman raises the stakes in his war on crime. With the help of Lt. Jim Gordon and District Attorney Harvey Dent, Batman sets out to dismantle the remaining criminal organizations.",
+                    GodinaIzdanja = 2008,
+                    Trajanje = 152,
+                    Reziser = "Christopher Nolan",
+                    PosterPath = "/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+                    ProsjecnaOcjena = 4.3,
+                    BrojOcjena = 2,
+                    BrojPregleda = 480,
+                    DatumKreiranja = new DateTime(2025, 1, 1),
+                    DatumIzmjene = new DateTime(2025, 1, 1)
+                },
+                new Filmovi
+                {
+                    Id = 5,
+                    TmdbId = 680,
+                    Naslov = "Pulp Fiction",
+                    Opis = "A burger-loving hit man, his philosophical partner, a drug-addled gangster's moll and a washed-up boxer converge in this sprawling, comedic crime caper.",
+                    GodinaIzdanja = 1994,
+                    Trajanje = 154,
                     Reziser = "Quentin Tarantino",
-                    ProsjecnaOcjena = 4.0,
-                    BrojOcjena = 60,
-                    BrojPregleda = 300,
+                    PosterPath = "/d5iIlFn5s0ImszYzBPb8JPIfbXD.jpg",
+                    ProsjecnaOcjena = 4.3,
+                    BrojOcjena = 2,
+                    BrojPregleda = 420,
                     DatumKreiranja = new DateTime(2025, 1, 1),
                     DatumIzmjene = new DateTime(2025, 1, 1)
                 }
-            );
-
-            modelBuilder.Entity<FilmoviZanrovi>().HasData(
-                new FilmoviZanrovi { Id = 1, FilmId = 1, ZanrId = 1 },
-                new FilmoviZanrovi { Id = 2, FilmId = 1, ZanrId = 5 },
-                new FilmoviZanrovi { Id = 3, FilmId = 1, ZanrId = 6 },
-                new FilmoviZanrovi { Id = 4, FilmId = 2, ZanrId = 2 },
-                new FilmoviZanrovi { Id = 5, FilmId = 2, ZanrId = 3 },
-                new FilmoviZanrovi { Id = 6, FilmId = 3, ZanrId = 2 },
-                new FilmoviZanrovi { Id = 7, FilmId = 3, ZanrId = 3 }
             );
 
             modelBuilder.Entity<Novosti>().HasData(
                 new Novosti
                 {
                     Id = 1,
-                    Naslov = "Oscars 2025: Najbolji filmovi godine",
-                    Sadrzaj = "Pregled nominacija za Oscara 2025. Saznajte koji filmovi su u utrci za najvaznije filmske nagrade.",
+                    Naslov = "Oscari 2025: Kompletna lista nominacija",
+                    Sadrzaj = "Akademija filmskih umjetnosti i nauka objavila je nominacije za 97. dodjelu Oscara. Anora predvodi sa 6 nominacija, a The Brutalist i Emilia Perez prate sa po 10 nominacija. Ceremonija dodjele održat će se 2. marta 2025. u Dolby Theatreu u Los Angelesu.",
                     AutorId = 1,
-                    BrojPregleda = 150,
+                    BrojPregleda = 1250,
                     DatumKreiranja = new DateTime(2025, 1, 15)
                 },
                 new Novosti
                 {
                     Id = 2,
-                    Naslov = "Novi Nolan film najavljljen za 2026",
-                    Sadrzaj = "Christopher Nolan najavio je svoj novi projekt koji ce biti objavljen 2026. godine.",
+                    Naslov = "Christopher Nolan najavio novi film za 2026.",
+                    Sadrzaj = "Nakon uspjeha Oppenheimera, Christopher Nolan vraća se sa novim projektom. Film će biti snimljen u IMAX formatu i prema najavama radi se o originalnoj priči. Universal Pictures potvrdio je datum premijere za juli 2026. godine.",
                     AutorId = 1,
-                    BrojPregleda = 230,
+                    BrojPregleda = 890,
                     DatumKreiranja = new DateTime(2025, 1, 10)
+                },
+                new Novosti
+                {
+                    Id = 3,
+                    Naslov = "Martin Scorsese priprema dokumentarac o klasičnom Hollywoodu",
+                    Sadrzaj = "Legendarni reditelj Martin Scorsese najavio je novi dokumentarni film koji će istražiti zlatno doba Hollywooda 1940-ih i 1950-ih godina. Projekt će uključivati rijetke arhivske snimke i intervjue sa preživjelim legendama iz tog perioda.",
+                    AutorId = 1,
+                    BrojPregleda = 567,
+                    DatumKreiranja = new DateTime(2025, 1, 8)
+                },
+                new Novosti
+                {
+                    Id = 4,
+                    Naslov = "Streaming platforme dominiraju box office",
+                    Sadrzaj = "Analiza filmske industrije pokazuje da streaming platforme nastavljaju transformirati način na koji gledamo filmove. Netflix, Amazon Prime i Apple TV+ ulažu rekordne budžete u originalne produkcije, dok tradicionalni studiji traže nove strategije za privlačenje publike u kina.",
+                    AutorId = 1,
+                    BrojPregleda = 432,
+                    DatumKreiranja = new DateTime(2025, 1, 5)
                 }
             );
 
@@ -410,9 +455,11 @@ namespace staGledas.Service.Database
                     Id = 1,
                     KorisnikId = 2,
                     FilmId = 1,
-                    Ocjena = 5,
-                    Naslov = "Remek djelo!",
-                    Sadrzaj = "Inception je jedan od najboljih filmova koje sam ikada gledao. Nolan je genij.",
+                    Ocjena = 5.0,
+                    Naslov = "Remek djelo modernog filma",
+                    Sadrzaj = "Inception je vizualno zapanjujući film koji uspijeva kombinirati akciju sa dubokim filozofskim pitanjima o prirodi stvarnosti i snova. Nolan je stvorio jedinstveno filmsko iskustvo.",
+                    ImaSpoiler = false,
+                    IsHidden = false,
                     DatumKreiranja = new DateTime(2025, 1, 5)
                 },
                 new Recenzije
@@ -420,59 +467,209 @@ namespace staGledas.Service.Database
                     Id = 2,
                     KorisnikId = 2,
                     FilmId = 2,
-                    Ocjena = 4,
-                    Naslov = "Odlicna gluma",
-                    Sadrzaj = "DiCaprio je bio nevjerovatan u ulozi Jordan Belforta.",
+                    Ocjena = 5.0,
+                    Naslov = "Najbolji film svih vremena",
+                    Sadrzaj = "The Shawshank Redemption je dirljiva priča o nadi i prijateljstvu. Tim Robbins i Morgan Freeman su nevjerovatni u svojim ulogama. Film koji vas nikad neće napustiti.",
+                    ImaSpoiler = false,
+                    IsHidden = false,
                     DatumKreiranja = new DateTime(2025, 1, 6)
+                },
+                new Recenzije
+                {
+                    Id = 3,
+                    KorisnikId = 1,
+                    FilmId = 2,
+                    Ocjena = 4.5,
+                    Naslov = "Klasik koji se mora pogledati",
+                    Sadrzaj = "Izvanredna adaptacija Stephen Kingove novele. Film koji demonstrira snagu ljudskog duha i važnost nade čak i u najtežim okolnostima.",
+                    ImaSpoiler = false,
+                    IsHidden = false,
+                    DatumKreiranja = new DateTime(2025, 1, 7)
+                },
+                new Recenzije
+                {
+                    Id = 4,
+                    KorisnikId = 2,
+                    FilmId = 3,
+                    Ocjena = 4.5,
+                    Naslov = "Epska saga o porodici i moći",
+                    Sadrzaj = "Marlon Brando je nezaboravan kao Don Vito Corleone. Coppola je stvorio film koji definira žanr gangsterskih filmova. Svaka scena je savršeno režirana.",
+                    ImaSpoiler = false,
+                    IsHidden = false,
+                    DatumKreiranja = new DateTime(2025, 1, 8)
+                },
+                new Recenzije
+                {
+                    Id = 5,
+                    KorisnikId = 1,
+                    FilmId = 3,
+                    Ocjena = 4.0,
+                    Naslov = "Filmska historija",
+                    Sadrzaj = "The Godfather je više od filma - to je kulturni fenomen koji je utjecao na generacije filmskih stvaralaca. Obavezno gledanje za svakog ljubitelja filma.",
+                    ImaSpoiler = false,
+                    IsHidden = false,
+                    DatumKreiranja = new DateTime(2025, 1, 9)
+                },
+                new Recenzije
+                {
+                    Id = 6,
+                    KorisnikId = 2,
+                    FilmId = 4,
+                    Ocjena = 4.5,
+                    Naslov = "Heath Ledger je genijalan",
+                    Sadrzaj = "Ovaj film je dokaz da superherojski filmovi mogu biti ozbiljno umjetničko djelo. Heath Ledger kao Joker je jedna od najimpresivnijih transformacija u historiji filma.",
+                    ImaSpoiler = false,
+                    IsHidden = false,
+                    DatumKreiranja = new DateTime(2025, 1, 10)
+                },
+                new Recenzije
+                {
+                    Id = 7,
+                    KorisnikId = 1,
+                    FilmId = 4,
+                    Ocjena = 4.0,
+                    Naslov = "Najbolji Batman film",
+                    Sadrzaj = "Nolan je transformirao Batman franšizu u nešto potpuno novo. Mračan, realističan i napeto režiran od početka do kraja.",
+                    ImaSpoiler = false,
+                    IsHidden = false,
+                    DatumKreiranja = new DateTime(2025, 1, 11)
+                },
+                new Recenzije
+                {
+                    Id = 8,
+                    KorisnikId = 2,
+                    FilmId = 5,
+                    Ocjena = 4.5,
+                    Naslov = "Tarantinov potpis",
+                    Sadrzaj = "Pulp Fiction je revolucionirao nezavisni film 90-ih. Dijalozi su briljantni, struktura inovativna, a soundtrack savršen. Film koji zahtijeva višestruka gledanja.",
+                    ImaSpoiler = false,
+                    IsHidden = false,
+                    DatumKreiranja = new DateTime(2025, 1, 12)
+                },
+                new Recenzije
+                {
+                    Id = 9,
+                    KorisnikId = 1,
+                    FilmId = 5,
+                    Ocjena = 4.0,
+                    Naslov = "Kultni klasik",
+                    Sadrzaj = "Nelinearna naracija i nezaboravni likovi čine ovaj film posebnim. Samuel L. Jackson i John Travolta su savršeni zajedno.",
+                    ImaSpoiler = false,
+                    IsHidden = false,
+                    DatumKreiranja = new DateTime(2025, 1, 13)
+                },
+                new Recenzije
+                {
+                    Id = 10,
+                    KorisnikId = 1,
+                    FilmId = 1,
+                    Ocjena = 3.5,
+                    Naslov = "Vizualno impresivan ali konfuzan",
+                    Sadrzaj = "Film je tehnički briljantan ali ponekad previše kompliciran. Završetak ostavlja previše pitanja bez odgovora. Ipak, vrijedi pogledati bar jednom.",
+                    ImaSpoiler = true,
+                    IsHidden = false,
+                    DatumKreiranja = new DateTime(2025, 1, 14)
+                },
+                new Recenzije
+                {
+                    Id = 11,
+                    KorisnikId = 2,
+                    FilmId = 1,
+                    Ocjena = 4.0,
+                    Naslov = "Nolan nikad ne razočara",
+                    Sadrzaj = "Još jedan dokaz Nolanovog genija. Kompleksna priča koja nagrađuje pažljive gledatelje. Hans Zimmerov soundtrack je fantastičan.",
+                    ImaSpoiler = false,
+                    IsHidden = false,
+                    DatumKreiranja = new DateTime(2025, 1, 15)
                 }
             );
 
-            modelBuilder.Entity<Zalbe>().HasData(
-                new Zalbe
+            modelBuilder.Entity<Watchlist>().HasData(
+                new Watchlist
                 {
                     Id = 1,
-                    RecenzijaId = 1,
                     KorisnikId = 1,
-                    Razlog = "Neprimjeren sadržaj",
-                    Opis = "Recenzija sadrži uvredljive komentare.",
-                    Status = "pending",
-                    DatumKreiranja = new DateTime(2025, 1, 7)
+                    FilmId = 1,
+                    DatumDodavanja = new DateTime(2025, 1, 5),
+                    Pogledano = true,
+                    DatumGledanja = new DateTime(2025, 1, 6)
                 },
-                new Zalbe
+                new Watchlist
                 {
                     Id = 2,
-                    RecenzijaId = 2,
                     KorisnikId = 1,
-                    Razlog = "Spoiler bez upozorenja",
-                    Opis = "Korisnik je otkrio ključne dijelove radnje bez spoiler upozorenja.",
-                    Status = "pending",
-                    DatumKreiranja = new DateTime(2025, 1, 8)
+                    FilmId = 4,
+                    DatumDodavanja = new DateTime(2025, 1, 7),
+                    Pogledano = true,
+                    DatumGledanja = new DateTime(2025, 1, 8)
                 },
-                new Zalbe
+                new Watchlist
                 {
                     Id = 3,
-                    RecenzijaId = 1,
-                    KorisnikId = 2,
-                    Razlog = "Lažne informacije",
-                    Opis = "Recenzija sadrži netočne informacije o filmu.",
-                    Status = "approved",
-                    DatumKreiranja = new DateTime(2025, 1, 5),
-                    DatumObrade = new DateTime(2025, 1, 6),
-                    ObradioPrijavuId = 1
+                    KorisnikId = 1,
+                    FilmId = 3,
+                    DatumDodavanja = new DateTime(2025, 1, 9),
+                    Pogledano = true,
+                    DatumGledanja = new DateTime(2025, 1, 10)
                 },
-                new Zalbe
+                new Watchlist
                 {
                     Id = 4,
-                    RecenzijaId = 2,
                     KorisnikId = 2,
-                    Razlog = "Spam",
-                    Opis = "Recenzija je očigledno promotivni sadržaj.",
-                    Status = "rejected",
-                    DatumKreiranja = new DateTime(2025, 1, 4),
-                    DatumObrade = new DateTime(2025, 1, 5),
-                    ObradioPrijavuId = 1
+                    FilmId = 2,
+                    DatumDodavanja = new DateTime(2025, 1, 5),
+                    Pogledano = true,
+                    DatumGledanja = new DateTime(2025, 1, 6)
+                },
+                new Watchlist
+                {
+                    Id = 5,
+                    KorisnikId = 2,
+                    FilmId = 5,
+                    DatumDodavanja = new DateTime(2025, 1, 7),
+                    Pogledano = true,
+                    DatumGledanja = new DateTime(2025, 1, 8)
                 }
             );
+
+            modelBuilder.Entity<FilmoviLajkovi>().HasData(
+                new FilmoviLajkovi
+                {
+                    Id = 1,
+                    KorisnikId = 1,
+                    FilmId = 1,
+                    DatumLajka = new DateTime(2025, 1, 6)
+                },
+                new FilmoviLajkovi
+                {
+                    Id = 2,
+                    KorisnikId = 1,
+                    FilmId = 4,
+                    DatumLajka = new DateTime(2025, 1, 8)
+                },
+                new FilmoviLajkovi
+                {
+                    Id = 3,
+                    KorisnikId = 1,
+                    FilmId = 3,
+                    DatumLajka = new DateTime(2025, 1, 10)
+                },
+                new FilmoviLajkovi
+                {
+                    Id = 4,
+                    KorisnikId = 2,
+                    FilmId = 2,
+                    DatumLajka = new DateTime(2025, 1, 6)
+                },
+                new FilmoviLajkovi
+                {
+                    Id = 5,
+                    KorisnikId = 2,
+                    FilmId = 5,
+                    DatumLajka = new DateTime(2025, 1, 8)
+                }
+            );
+
         }
 
         public static string GenerateSalt()

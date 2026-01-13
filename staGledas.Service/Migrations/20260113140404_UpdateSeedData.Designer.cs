@@ -12,8 +12,8 @@ using staGledas.Service.Database;
 namespace staGledas.Service.Migrations
 {
     [DbContext(typeof(StaGledasContext))]
-    [Migration("20260108194519_SeedZalbe")]
-    partial class SeedZalbe
+    [Migration("20260113140404_UpdateSeedData")]
+    partial class UpdateSeedData
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,6 +25,33 @@ namespace staGledas.Service.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("staGledas.Service.Database.Favoriti", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("DatumDodavanja")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("FilmId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("KorisnikId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FilmId");
+
+                    b.HasIndex("KorisnikId", "FilmId")
+                        .IsUnique();
+
+                    b.ToTable("Favoriti");
+                });
+
             modelBuilder.Entity("staGledas.Service.Database.Filmovi", b =>
                 {
                     b.Property<int>("Id")
@@ -32,6 +59,9 @@ namespace staGledas.Service.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("BrojLajkova")
+                        .HasColumnType("int");
 
                     b.Property<int?>("BrojOcjena")
                         .HasColumnType("int");
@@ -49,7 +79,7 @@ namespace staGledas.Service.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Naslov")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Opis")
                         .HasColumnType("nvarchar(max)");
@@ -71,54 +101,94 @@ namespace staGledas.Service.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Naslov");
+
                     b.ToTable("Filmovi");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            BrojOcjena = 100,
+                            BrojOcjena = 3,
                             BrojPregleda = 500,
                             DatumIzmjene = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DatumKreiranja = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             GodinaIzdanja = 2010,
                             Naslov = "Inception",
-                            Opis = "A thief who steals corporate secrets through dream-sharing technology.",
-                            ProsjecnaOcjena = 4.5,
+                            Opis = "Cobb, a skilled thief who commits corporate espionage by infiltrating the subconscious of his targets is offered a chance to regain his old life as payment for a task considered to be impossible: inception.",
+                            PosterPath = "/ljsZTbVsrQSqZgWeep2B1QiDKuh.jpg",
+                            ProsjecnaOcjena = 4.2000000000000002,
                             Reziser = "Christopher Nolan",
+                            TmdbId = 27205,
                             Trajanje = 148
                         },
                         new
                         {
                             Id = 2,
-                            BrojOcjena = 80,
-                            BrojPregleda = 400,
+                            BrojOcjena = 2,
+                            BrojPregleda = 450,
                             DatumIzmjene = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DatumKreiranja = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            GodinaIzdanja = 2013,
-                            Naslov = "The Wolf of Wall Street",
-                            Opis = "Based on the true story of Jordan Belfort.",
-                            ProsjecnaOcjena = 4.2000000000000002,
-                            Reziser = "Martin Scorsese",
-                            Trajanje = 180
+                            GodinaIzdanja = 1994,
+                            Naslov = "The Shawshank Redemption",
+                            Opis = "Imprisoned in the 1940s for the double murder of his wife and her lover, upstanding banker Andy Dufresne begins a new life at the Shawshank prison.",
+                            PosterPath = "/9cqNxx0GxF0bflZmeSMuL5tnGzr.jpg",
+                            ProsjecnaOcjena = 4.7000000000000002,
+                            Reziser = "Frank Darabont",
+                            TmdbId = 278,
+                            Trajanje = 142
                         },
                         new
                         {
                             Id = 3,
-                            BrojOcjena = 60,
-                            BrojPregleda = 300,
+                            BrojOcjena = 2,
+                            BrojPregleda = 400,
                             DatumIzmjene = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DatumKreiranja = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            GodinaIzdanja = 2019,
-                            Naslov = "Once Upon a Time in Hollywood",
-                            Opis = "A faded television actor and his stunt double strive to achieve fame.",
-                            ProsjecnaOcjena = 4.0,
+                            GodinaIzdanja = 1972,
+                            Naslov = "The Godfather",
+                            Opis = "Spanning the years 1945 to 1955, a chronicle of the fictional Italian-American Corleone crime family.",
+                            PosterPath = "/3bhkrj58Vtu7enYsRolD1fZdja1.jpg",
+                            ProsjecnaOcjena = 4.4000000000000004,
+                            Reziser = "Francis Ford Coppola",
+                            TmdbId = 238,
+                            Trajanje = 175
+                        },
+                        new
+                        {
+                            Id = 4,
+                            BrojOcjena = 2,
+                            BrojPregleda = 480,
+                            DatumIzmjene = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DatumKreiranja = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            GodinaIzdanja = 2008,
+                            Naslov = "The Dark Knight",
+                            Opis = "Batman raises the stakes in his war on crime. With the help of Lt. Jim Gordon and District Attorney Harvey Dent, Batman sets out to dismantle the remaining criminal organizations.",
+                            PosterPath = "/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+                            ProsjecnaOcjena = 4.2999999999999998,
+                            Reziser = "Christopher Nolan",
+                            TmdbId = 155,
+                            Trajanje = 152
+                        },
+                        new
+                        {
+                            Id = 5,
+                            BrojOcjena = 2,
+                            BrojPregleda = 420,
+                            DatumIzmjene = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DatumKreiranja = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            GodinaIzdanja = 1994,
+                            Naslov = "Pulp Fiction",
+                            Opis = "A burger-loving hit man, his philosophical partner, a drug-addled gangster's moll and a washed-up boxer converge in this sprawling, comedic crime caper.",
+                            PosterPath = "/d5iIlFn5s0ImszYzBPb8JPIfbXD.jpg",
+                            ProsjecnaOcjena = 4.2999999999999998,
                             Reziser = "Quentin Tarantino",
-                            Trajanje = 161
+                            TmdbId = 680,
+                            Trajanje = 154
                         });
                 });
 
-            modelBuilder.Entity("staGledas.Service.Database.FilmoviGlumci", b =>
+            modelBuilder.Entity("staGledas.Service.Database.FilmoviLajkovi", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -126,66 +196,23 @@ namespace staGledas.Service.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("DatumLajka")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("FilmId")
                         .HasColumnType("int");
 
-                    b.Property<int>("GlumacId")
+                    b.Property<int>("KorisnikId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Uloga")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("FilmId");
 
-                    b.HasIndex("GlumacId");
+                    b.HasIndex("KorisnikId", "FilmId")
+                        .IsUnique();
 
-                    b.ToTable("FilmoviGlumci");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            FilmId = 1,
-                            GlumacId = 1,
-                            Uloga = "Dom Cobb"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            FilmId = 2,
-                            GlumacId = 1,
-                            Uloga = "Jordan Belfort"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            FilmId = 2,
-                            GlumacId = 3,
-                            Uloga = "Naomi Lapaglia"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            FilmId = 3,
-                            GlumacId = 1,
-                            Uloga = "Rick Dalton"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            FilmId = 3,
-                            GlumacId = 2,
-                            Uloga = "Cliff Booth"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            FilmId = 3,
-                            GlumacId = 3,
-                            Uloga = "Sharon Tate"
-                        });
+                    b.ToTable("FilmoviLajkovi");
                 });
 
             modelBuilder.Entity("staGledas.Service.Database.FilmoviZanrovi", b =>
@@ -209,120 +236,6 @@ namespace staGledas.Service.Migrations
                     b.HasIndex("ZanrId");
 
                     b.ToTable("FilmoviZanrovi");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            FilmId = 1,
-                            ZanrId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            FilmId = 1,
-                            ZanrId = 5
-                        },
-                        new
-                        {
-                            Id = 3,
-                            FilmId = 1,
-                            ZanrId = 6
-                        },
-                        new
-                        {
-                            Id = 4,
-                            FilmId = 2,
-                            ZanrId = 2
-                        },
-                        new
-                        {
-                            Id = 5,
-                            FilmId = 2,
-                            ZanrId = 3
-                        },
-                        new
-                        {
-                            Id = 6,
-                            FilmId = 3,
-                            ZanrId = 2
-                        },
-                        new
-                        {
-                            Id = 7,
-                            FilmId = 3,
-                            ZanrId = 3
-                        });
-                });
-
-            modelBuilder.Entity("staGledas.Service.Database.Glumci", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Biografija")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DatumRodjenja")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Ime")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Prezime")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SlikaPath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Glumci");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Biografija = "Americki glumac",
-                            DatumRodjenja = new DateTime(1974, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Ime = "Leonardo",
-                            Prezime = "DiCaprio"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Biografija = "Americki glumac i producent",
-                            DatumRodjenja = new DateTime(1963, 12, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Ime = "Brad",
-                            Prezime = "Pitt"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Biografija = "Australska glumica",
-                            DatumRodjenja = new DateTime(1990, 7, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Ime = "Margot",
-                            Prezime = "Robbie"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Biografija = "Americka glumica",
-                            DatumRodjenja = new DateTime(1984, 11, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Ime = "Scarlett",
-                            Prezime = "Johansson"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Biografija = "Americki glumac",
-                            DatumRodjenja = new DateTime(1965, 4, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Ime = "Robert",
-                            Prezime = "Downey Jr."
-                        });
                 });
 
             modelBuilder.Entity("staGledas.Service.Database.KlubFilmova", b =>
@@ -391,6 +304,105 @@ namespace staGledas.Service.Migrations
                     b.ToTable("KlubFilmovaClanovi");
                 });
 
+            modelBuilder.Entity("staGledas.Service.Database.KlubKomentari", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("DatumKreiranja")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("KorisnikId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ObjavaId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ParentKomentarId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Sadrzaj")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("KorisnikId");
+
+                    b.HasIndex("ObjavaId");
+
+                    b.HasIndex("ParentKomentarId");
+
+                    b.ToTable("KlubKomentari");
+                });
+
+            modelBuilder.Entity("staGledas.Service.Database.KlubLajkovi", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("DatumLajka")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("KorisnikId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ObjavaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ObjavaId");
+
+                    b.HasIndex("KorisnikId", "ObjavaId")
+                        .IsUnique();
+
+                    b.ToTable("KlubLajkovi");
+                });
+
+            modelBuilder.Entity("staGledas.Service.Database.KlubObjave", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("DatumBrisanja")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DatumIzmjene")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DatumKreiranja")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("KlubId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("KorisnikId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Sadrzaj")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("KlubId");
+
+                    b.HasIndex("KorisnikId");
+
+                    b.ToTable("KlubObjave");
+                });
+
             modelBuilder.Entity("staGledas.Service.Database.Korisnici", b =>
                 {
                     b.Property<int>("Id")
@@ -412,7 +424,7 @@ namespace staGledas.Service.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Ime")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -430,7 +442,7 @@ namespace staGledas.Service.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Prezime")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<byte[]>("Slika")
                         .HasColumnType("varbinary(max)");
@@ -442,6 +454,10 @@ namespace staGledas.Service.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Ime");
+
+                    b.HasIndex("Prezime");
 
                     b.ToTable("Korisnici");
 
@@ -456,8 +472,8 @@ namespace staGledas.Service.Migrations
                             IsDeleted = false,
                             IsPremium = false,
                             KorisnickoIme = "admin",
-                            LozinkaHash = "oYswjVKvdXGkX5eKuhwAIo15t94=",
-                            LozinkaSalt = "s+7g5bmKHp78/j6N1AQScQ==",
+                            LozinkaHash = "D2uLCiGXHRiNM+mNAr0cOchH+gQ=",
+                            LozinkaSalt = "fStjlRc+0bKc+yId5mDA6Q==",
                             Prezime = "Admin",
                             Status = true,
                             Telefon = "061000000"
@@ -470,10 +486,10 @@ namespace staGledas.Service.Migrations
                             Email = "test@stagledas.com",
                             Ime = "Test",
                             IsDeleted = false,
-                            IsPremium = true,
+                            IsPremium = false,
                             KorisnickoIme = "test",
-                            LozinkaHash = "oYswjVKvdXGkX5eKuhwAIo15t94=",
-                            LozinkaSalt = "s+7g5bmKHp78/j6N1AQScQ==",
+                            LozinkaHash = "D2uLCiGXHRiNM+mNAr0cOchH+gQ=",
+                            LozinkaSalt = "fStjlRc+0bKc+yId5mDA6Q==",
                             Prezime = "User",
                             Status = true,
                             Telefon = "062000000"
@@ -543,9 +559,6 @@ namespace staGledas.Service.Migrations
                     b.Property<DateTime>("DatumKreiranja")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Kategorija")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Naslov")
                         .HasColumnType("nvarchar(max)");
 
@@ -566,22 +579,86 @@ namespace staGledas.Service.Migrations
                         {
                             Id = 1,
                             AutorId = 1,
-                            BrojPregleda = 150,
+                            BrojPregleda = 1250,
                             DatumKreiranja = new DateTime(2025, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Kategorija = "Oscars",
-                            Naslov = "Oscars 2025: Najbolji filmovi godine",
-                            Sadrzaj = "Pregled nominacija za Oscara 2025. Saznajte koji filmovi su u utrci za najvaznije filmske nagrade."
+                            Naslov = "Oscari 2025: Kompletna lista nominacija",
+                            Sadrzaj = "Akademija filmskih umjetnosti i nauka objavila je nominacije za 97. dodjelu Oscara. Anora predvodi sa 6 nominacija, a The Brutalist i Emilia Perez prate sa po 10 nominacija. Ceremonija dodjele održat će se 2. marta 2025. u Dolby Theatreu u Los Angelesu."
                         },
                         new
                         {
                             Id = 2,
                             AutorId = 1,
-                            BrojPregleda = 230,
+                            BrojPregleda = 890,
                             DatumKreiranja = new DateTime(2025, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Kategorija = "Vijesti",
-                            Naslov = "Novi Nolan film najavljljen za 2026",
-                            Sadrzaj = "Christopher Nolan najavio je svoj novi projekt koji ce biti objavljen 2026. godine."
+                            Naslov = "Christopher Nolan najavio novi film za 2026.",
+                            Sadrzaj = "Nakon uspjeha Oppenheimera, Christopher Nolan vraća se sa novim projektom. Film će biti snimljen u IMAX formatu i prema najavama radi se o originalnoj priči. Universal Pictures potvrdio je datum premijere za juli 2026. godine."
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AutorId = 1,
+                            BrojPregleda = 567,
+                            DatumKreiranja = new DateTime(2025, 1, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Naslov = "Martin Scorsese priprema dokumentarac o klasičnom Hollywoodu",
+                            Sadrzaj = "Legendarni reditelj Martin Scorsese najavio je novi dokumentarni film koji će istražiti zlatno doba Hollywooda 1940-ih i 1950-ih godina. Projekt će uključivati rijetke arhivske snimke i intervjue sa preživjelim legendama iz tog perioda."
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AutorId = 1,
+                            BrojPregleda = 432,
+                            DatumKreiranja = new DateTime(2025, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Naslov = "Streaming platforme dominiraju box office",
+                            Sadrzaj = "Analiza filmske industrije pokazuje da streaming platforme nastavljaju transformirati način na koji gledamo filmove. Netflix, Amazon Prime i Apple TV+ ulažu rekordne budžete u originalne produkcije, dok tradicionalni studiji traže nove strategije za privlačenje publike u kina."
                         });
+                });
+
+            modelBuilder.Entity("staGledas.Service.Database.Obavijesti", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("DatumKreiranja")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DatumObrade")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("KlubId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Poruka")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PosiljateljId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PrimateljId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Procitano")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tip")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("KlubId");
+
+                    b.HasIndex("PosiljateljId");
+
+                    b.HasIndex("PrimateljId");
+
+                    b.ToTable("Obavijesti");
                 });
 
             modelBuilder.Entity("staGledas.Service.Database.Poruke", b =>
@@ -696,17 +773,23 @@ namespace staGledas.Service.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("BrojLajkova")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("DatumIzmjene")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DatumKreiranja")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime?>("DatumSkrivanja")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("FilmId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("ImaSpoiler")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsHidden")
+                        .HasColumnType("bit");
 
                     b.Property<int>("KorisnikId")
                         .HasColumnType("int");
@@ -714,8 +797,8 @@ namespace staGledas.Service.Migrations
                     b.Property<string>("Naslov")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Ocjena")
-                        .HasColumnType("int");
+                    b.Property<double>("Ocjena")
+                        .HasColumnType("float");
 
                     b.Property<string>("Sadrzaj")
                         .HasColumnType("nvarchar(max)");
@@ -732,24 +815,134 @@ namespace staGledas.Service.Migrations
                         new
                         {
                             Id = 1,
-                            BrojLajkova = 25,
                             DatumKreiranja = new DateTime(2025, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FilmId = 1,
+                            ImaSpoiler = false,
+                            IsHidden = false,
                             KorisnikId = 2,
-                            Naslov = "Remek djelo!",
-                            Ocjena = 5,
-                            Sadrzaj = "Inception je jedan od najboljih filmova koje sam ikada gledao. Nolan je genij."
+                            Naslov = "Remek djelo modernog filma",
+                            Ocjena = 5.0,
+                            Sadrzaj = "Inception je vizualno zapanjujući film koji uspijeva kombinirati akciju sa dubokim filozofskim pitanjima o prirodi stvarnosti i snova. Nolan je stvorio jedinstveno filmsko iskustvo."
                         },
                         new
                         {
                             Id = 2,
-                            BrojLajkova = 18,
                             DatumKreiranja = new DateTime(2025, 1, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FilmId = 2,
+                            ImaSpoiler = false,
+                            IsHidden = false,
                             KorisnikId = 2,
-                            Naslov = "Odlicna gluma",
-                            Ocjena = 4,
-                            Sadrzaj = "DiCaprio je bio nevjerovatan u ulozi Jordan Belforta."
+                            Naslov = "Najbolji film svih vremena",
+                            Ocjena = 5.0,
+                            Sadrzaj = "The Shawshank Redemption je dirljiva priča o nadi i prijateljstvu. Tim Robbins i Morgan Freeman su nevjerovatni u svojim ulogama. Film koji vas nikad neće napustiti."
+                        },
+                        new
+                        {
+                            Id = 3,
+                            DatumKreiranja = new DateTime(2025, 1, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FilmId = 2,
+                            ImaSpoiler = false,
+                            IsHidden = false,
+                            KorisnikId = 1,
+                            Naslov = "Klasik koji se mora pogledati",
+                            Ocjena = 4.5,
+                            Sadrzaj = "Izvanredna adaptacija Stephen Kingove novele. Film koji demonstrira snagu ljudskog duha i važnost nade čak i u najtežim okolnostima."
+                        },
+                        new
+                        {
+                            Id = 4,
+                            DatumKreiranja = new DateTime(2025, 1, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FilmId = 3,
+                            ImaSpoiler = false,
+                            IsHidden = false,
+                            KorisnikId = 2,
+                            Naslov = "Epska saga o porodici i moći",
+                            Ocjena = 4.5,
+                            Sadrzaj = "Marlon Brando je nezaboravan kao Don Vito Corleone. Coppola je stvorio film koji definira žanr gangsterskih filmova. Svaka scena je savršeno režirana."
+                        },
+                        new
+                        {
+                            Id = 5,
+                            DatumKreiranja = new DateTime(2025, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FilmId = 3,
+                            ImaSpoiler = false,
+                            IsHidden = false,
+                            KorisnikId = 1,
+                            Naslov = "Filmska historija",
+                            Ocjena = 4.0,
+                            Sadrzaj = "The Godfather je više od filma - to je kulturni fenomen koji je utjecao na generacije filmskih stvaralaca. Obavezno gledanje za svakog ljubitelja filma."
+                        },
+                        new
+                        {
+                            Id = 6,
+                            DatumKreiranja = new DateTime(2025, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FilmId = 4,
+                            ImaSpoiler = false,
+                            IsHidden = false,
+                            KorisnikId = 2,
+                            Naslov = "Heath Ledger je genijalan",
+                            Ocjena = 4.5,
+                            Sadrzaj = "Ovaj film je dokaz da superherojski filmovi mogu biti ozbiljno umjetničko djelo. Heath Ledger kao Joker je jedna od najimpresivnijih transformacija u historiji filma."
+                        },
+                        new
+                        {
+                            Id = 7,
+                            DatumKreiranja = new DateTime(2025, 1, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FilmId = 4,
+                            ImaSpoiler = false,
+                            IsHidden = false,
+                            KorisnikId = 1,
+                            Naslov = "Najbolji Batman film",
+                            Ocjena = 4.0,
+                            Sadrzaj = "Nolan je transformirao Batman franšizu u nešto potpuno novo. Mračan, realističan i napeto režiran od početka do kraja."
+                        },
+                        new
+                        {
+                            Id = 8,
+                            DatumKreiranja = new DateTime(2025, 1, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FilmId = 5,
+                            ImaSpoiler = false,
+                            IsHidden = false,
+                            KorisnikId = 2,
+                            Naslov = "Tarantinov potpis",
+                            Ocjena = 4.5,
+                            Sadrzaj = "Pulp Fiction je revolucionirao nezavisni film 90-ih. Dijalozi su briljantni, struktura inovativna, a soundtrack savršen. Film koji zahtijeva višestruka gledanja."
+                        },
+                        new
+                        {
+                            Id = 9,
+                            DatumKreiranja = new DateTime(2025, 1, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FilmId = 5,
+                            ImaSpoiler = false,
+                            IsHidden = false,
+                            KorisnikId = 1,
+                            Naslov = "Kultni klasik",
+                            Ocjena = 4.0,
+                            Sadrzaj = "Nelinearna naracija i nezaboravni likovi čine ovaj film posebnim. Samuel L. Jackson i John Travolta su savršeni zajedno."
+                        },
+                        new
+                        {
+                            Id = 10,
+                            DatumKreiranja = new DateTime(2025, 1, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FilmId = 1,
+                            ImaSpoiler = true,
+                            IsHidden = false,
+                            KorisnikId = 1,
+                            Naslov = "Vizualno impresivan ali konfuzan",
+                            Ocjena = 3.5,
+                            Sadrzaj = "Film je tehnički briljantan ali ponekad previše kompliciran. Završetak ostavlja previše pitanja bez odgovora. Ipak, vrijedi pogledati bar jednom."
+                        },
+                        new
+                        {
+                            Id = 11,
+                            DatumKreiranja = new DateTime(2025, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FilmId = 1,
+                            ImaSpoiler = false,
+                            IsHidden = false,
+                            KorisnikId = 2,
+                            Naslov = "Nolan nikad ne razočara",
+                            Ocjena = 4.0,
+                            Sadrzaj = "Još jedan dokaz Nolanovog genija. Kompleksna priča koja nagrađuje pažljive gledatelje. Hans Zimmerov soundtrack je fantastičan."
                         });
                 });
 
@@ -871,46 +1064,34 @@ namespace staGledas.Service.Migrations
                         new
                         {
                             Id = 1,
-                            DatumKreiranja = new DateTime(2025, 1, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            KorisnikId = 1,
-                            Opis = "Recenzija sadrži uvredljive komentare.",
-                            Razlog = "Neprimjeren sadržaj",
-                            RecenzijaId = 1,
+                            DatumKreiranja = new DateTime(2025, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            KorisnikId = 2,
+                            Opis = "Recenzija otkriva ključne dijelove radnje filma bez označavanja kao spoiler.",
+                            Razlog = "Spoiler bez upozorenja",
+                            RecenzijaId = 10,
                             Status = "pending"
                         },
                         new
                         {
                             Id = 2,
-                            DatumKreiranja = new DateTime(2025, 1, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DatumKreiranja = new DateTime(2025, 1, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DatumObrade = new DateTime(2025, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             KorisnikId = 1,
-                            Opis = "Korisnik je otkrio ključne dijelove radnje bez spoiler upozorenja.",
-                            Razlog = "Spoiler bez upozorenja",
-                            RecenzijaId = 2,
-                            Status = "pending"
+                            ObradioPrijavuId = 1,
+                            Opis = "Korisnik navodi pogrešne činjenice o filmu i reditelju.",
+                            Razlog = "Netačne informacije",
+                            RecenzijaId = 4,
+                            Status = "rejected"
                         },
                         new
                         {
                             Id = 3,
-                            DatumKreiranja = new DateTime(2025, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DatumObrade = new DateTime(2025, 1, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DatumKreiranja = new DateTime(2025, 1, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             KorisnikId = 2,
-                            ObradioPrijavuId = 1,
-                            Opis = "Recenzija sadrži netočne informacije o filmu.",
-                            Razlog = "Lažne informacije",
-                            RecenzijaId = 1,
-                            Status = "approved"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            DatumKreiranja = new DateTime(2025, 1, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DatumObrade = new DateTime(2025, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            KorisnikId = 2,
-                            ObradioPrijavuId = 1,
-                            Opis = "Recenzija je očigledno promotivni sadržaj.",
-                            Razlog = "Spam",
-                            RecenzijaId = 2,
-                            Status = "rejected"
+                            Opis = "Recenzija sadrži neprimjerene komentare koji nisu vezani za film.",
+                            Razlog = "Neprimjeren sadržaj",
+                            RecenzijaId = 5,
+                            Status = "pending"
                         });
                 });
 
@@ -931,75 +1112,44 @@ namespace staGledas.Service.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Zanrovi");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Naziv = "Akcija",
-                            Opis = "Akcioni filmovi"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Naziv = "Komedija",
-                            Opis = "Komicni filmovi"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Naziv = "Drama",
-                            Opis = "Dramski filmovi"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Naziv = "Horor",
-                            Opis = "Horor filmovi"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Naziv = "Sci-Fi",
-                            Opis = "Naucna fantastika"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Naziv = "Triler",
-                            Opis = "Triler filmovi"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Naziv = "Romantika",
-                            Opis = "Romantični filmovi"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Naziv = "Animirani",
-                            Opis = "Animirani filmovi"
-                        });
                 });
 
-            modelBuilder.Entity("staGledas.Service.Database.FilmoviGlumci", b =>
+            modelBuilder.Entity("staGledas.Service.Database.Favoriti", b =>
                 {
                     b.HasOne("staGledas.Service.Database.Filmovi", "Film")
-                        .WithMany("FilmoviGlumci")
+                        .WithMany("Favoriti")
                         .HasForeignKey("FilmId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("staGledas.Service.Database.Glumci", "Glumac")
-                        .WithMany("FilmoviGlumci")
-                        .HasForeignKey("GlumacId")
+                    b.HasOne("staGledas.Service.Database.Korisnici", "Korisnik")
+                        .WithMany("Favoriti")
+                        .HasForeignKey("KorisnikId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Film");
 
-                    b.Navigation("Glumac");
+                    b.Navigation("Korisnik");
+                });
+
+            modelBuilder.Entity("staGledas.Service.Database.FilmoviLajkovi", b =>
+                {
+                    b.HasOne("staGledas.Service.Database.Filmovi", "Film")
+                        .WithMany("Lajkovi")
+                        .HasForeignKey("FilmId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("staGledas.Service.Database.Korisnici", "Korisnik")
+                        .WithMany("FilmoviLajkovi")
+                        .HasForeignKey("KorisnikId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Film");
+
+                    b.Navigation("Korisnik");
                 });
 
             modelBuilder.Entity("staGledas.Service.Database.FilmoviZanrovi", b =>
@@ -1051,6 +1201,70 @@ namespace staGledas.Service.Migrations
                     b.Navigation("Korisnik");
                 });
 
+            modelBuilder.Entity("staGledas.Service.Database.KlubKomentari", b =>
+                {
+                    b.HasOne("staGledas.Service.Database.Korisnici", "Korisnik")
+                        .WithMany("KlubKomentari")
+                        .HasForeignKey("KorisnikId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("staGledas.Service.Database.KlubObjave", "Objava")
+                        .WithMany("Komentari")
+                        .HasForeignKey("ObjavaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("staGledas.Service.Database.KlubKomentari", "ParentKomentar")
+                        .WithMany()
+                        .HasForeignKey("ParentKomentarId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Korisnik");
+
+                    b.Navigation("Objava");
+
+                    b.Navigation("ParentKomentar");
+                });
+
+            modelBuilder.Entity("staGledas.Service.Database.KlubLajkovi", b =>
+                {
+                    b.HasOne("staGledas.Service.Database.Korisnici", "Korisnik")
+                        .WithMany("KlubLajkovi")
+                        .HasForeignKey("KorisnikId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("staGledas.Service.Database.KlubObjave", "Objava")
+                        .WithMany("Lajkovi")
+                        .HasForeignKey("ObjavaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Korisnik");
+
+                    b.Navigation("Objava");
+                });
+
+            modelBuilder.Entity("staGledas.Service.Database.KlubObjave", b =>
+                {
+                    b.HasOne("staGledas.Service.Database.KlubFilmova", "Klub")
+                        .WithMany("Objave")
+                        .HasForeignKey("KlubId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("staGledas.Service.Database.Korisnici", "Korisnik")
+                        .WithMany("KlubObjave")
+                        .HasForeignKey("KorisnikId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Klub");
+
+                    b.Navigation("Korisnik");
+                });
+
             modelBuilder.Entity("staGledas.Service.Database.KorisniciUloge", b =>
                 {
                     b.HasOne("staGledas.Service.Database.Korisnici", "Korisnik")
@@ -1079,6 +1293,32 @@ namespace staGledas.Service.Migrations
                         .IsRequired();
 
                     b.Navigation("Autor");
+                });
+
+            modelBuilder.Entity("staGledas.Service.Database.Obavijesti", b =>
+                {
+                    b.HasOne("staGledas.Service.Database.KlubFilmova", "Klub")
+                        .WithMany()
+                        .HasForeignKey("KlubId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("staGledas.Service.Database.Korisnici", "Posiljatelj")
+                        .WithMany()
+                        .HasForeignKey("PosiljateljId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("staGledas.Service.Database.Korisnici", "Primatelj")
+                        .WithMany()
+                        .HasForeignKey("PrimateljId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Klub");
+
+                    b.Navigation("Posiljatelj");
+
+                    b.Navigation("Primatelj");
                 });
 
             modelBuilder.Entity("staGledas.Service.Database.Poruke", b =>
@@ -1196,27 +1436,43 @@ namespace staGledas.Service.Migrations
 
             modelBuilder.Entity("staGledas.Service.Database.Filmovi", b =>
                 {
-                    b.Navigation("FilmoviGlumci");
+                    b.Navigation("Favoriti");
 
                     b.Navigation("FilmoviZanrovi");
+
+                    b.Navigation("Lajkovi");
 
                     b.Navigation("Recenzije");
 
                     b.Navigation("Watchlist");
                 });
 
-            modelBuilder.Entity("staGledas.Service.Database.Glumci", b =>
-                {
-                    b.Navigation("FilmoviGlumci");
-                });
-
             modelBuilder.Entity("staGledas.Service.Database.KlubFilmova", b =>
                 {
                     b.Navigation("Clanovi");
+
+                    b.Navigation("Objave");
+                });
+
+            modelBuilder.Entity("staGledas.Service.Database.KlubObjave", b =>
+                {
+                    b.Navigation("Komentari");
+
+                    b.Navigation("Lajkovi");
                 });
 
             modelBuilder.Entity("staGledas.Service.Database.Korisnici", b =>
                 {
+                    b.Navigation("Favoriti");
+
+                    b.Navigation("FilmoviLajkovi");
+
+                    b.Navigation("KlubKomentari");
+
+                    b.Navigation("KlubLajkovi");
+
+                    b.Navigation("KlubObjave");
+
                     b.Navigation("KorisniciUloge");
 
                     b.Navigation("Novosti");

@@ -56,4 +56,36 @@ class TmdbProvider {
       throw Exception("Failed to import movie");
     }
   }
+
+  Future<List<TmdbMovie>> getTrending({int page = 1}) async {
+    var url = "$fullUrl/trending?page=$page";
+
+    var uri = Uri.parse(url);
+    var headers = createHeaders();
+
+    var response = await http.get(uri, headers: headers);
+
+    if (response.statusCode < 299) {
+      var data = jsonDecode(response.body) as List;
+      return data.map((item) => TmdbMovie.fromJson(item)).toList();
+    } else {
+      throw Exception("Failed to get trending movies");
+    }
+  }
+
+  Future<List<TmdbMovie>> getPopular({int page = 1}) async {
+    var url = "$fullUrl/popular?page=$page";
+
+    var uri = Uri.parse(url);
+    var headers = createHeaders();
+
+    var response = await http.get(uri, headers: headers);
+
+    if (response.statusCode < 299) {
+      var data = jsonDecode(response.body) as List;
+      return data.map((item) => TmdbMovie.fromJson(item)).toList();
+    } else {
+      throw Exception("Failed to get popular movies");
+    }
+  }
 }

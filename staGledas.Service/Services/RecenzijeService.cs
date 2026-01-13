@@ -36,7 +36,9 @@ namespace staGledas.Service.Services
 
         public override IQueryable<Database.Recenzije> AddFilter(RecenzijeSearchObject searchObject, IQueryable<Database.Recenzije> query)
         {
-            var filteredQuery = base.AddFilter(searchObject, query);
+            IQueryable<Database.Recenzije> filteredQuery = base.AddFilter(searchObject, query)
+                .Include(x => x.Film)
+                .Include(x => x.Korisnik);
 
             if (searchObject?.IncludeHidden != true)
             {
@@ -70,16 +72,6 @@ namespace staGledas.Service.Services
             if (searchObject?.MaxOcjena.HasValue == true)
             {
                 filteredQuery = filteredQuery.Where(x => x.Ocjena <= searchObject.MaxOcjena);
-            }
-
-            if (searchObject?.IsKorisnikIncluded == true)
-            {
-                filteredQuery = filteredQuery.Include(x => x.Korisnik);
-            }
-
-            if (searchObject?.IsFilmIncluded == true)
-            {
-                filteredQuery = filteredQuery.Include(x => x.Film);
             }
 
             if (!string.IsNullOrWhiteSpace(searchObject?.OrderBy))
